@@ -1,33 +1,29 @@
 import React from 'react';
-import { useSetRecoilState } from 'recoil';
+import useAtualizarEvento from '../../../hooks/useAtualizarEvento';
 import { IEvento } from '../../../interfaces/IEvento';
-import { listaDeEventosState } from '../../../state/atom';
 
 const EventoCheckbox: React.FC<{ evento: IEvento }> = ({ evento }) => {
 
-  const setListaDeEventos = useSetRecoilState<IEvento[]>(listaDeEventosState);
+	const atualizarEvento = useAtualizarEvento();
 
-  const alterarStatus = () => {
-    
-    const eventoAlterado = {
-      ...evento
-    };
+	const alterarStatus = () => {
 
-    eventoAlterado.completo = !eventoAlterado.completo;
+		const eventoAlterado = {
+			...evento
+		};
 
-    setListaDeEventos(listaAntiga => {
-      const indice = listaAntiga.findIndex(item => item.id === evento.id);
-      return [...listaAntiga.slice(0, indice), eventoAlterado, ...listaAntiga.slice(indice + 1)];
-    })
-  }
+		eventoAlterado.completo = !eventoAlterado.completo;
 
-  const estilos = [
-    'far',
-    'fa-2x',
-    evento.completo ? 'fa-check-square' : 'fa-square'
-  ]
+		atualizarEvento(eventoAlterado);
+	}
 
-  return (<i className={estilos.join(' ')} onClick={alterarStatus}></i>)
+	const estilos = [
+		'far',
+		'fa-2x',
+		evento.completo ? 'fa-check-square' : 'fa-square'
+	]
+
+	return (<i className={estilos.join(' ')} onClick={alterarStatus}></i>)
 }
 
 export default EventoCheckbox
