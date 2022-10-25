@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import { useSetRecoilState } from 'recoil';
 import useAdicionarEvento from '../../state/hooks/useAdicionarEvento';
-import { IEvento } from '../../interfaces/IEvento';
-import { listaDeEventosState } from '../../state/atom';
 import style from './Formulario.module.scss';
 
 const Formulario: React.FC = () => {
